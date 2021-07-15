@@ -1,4 +1,4 @@
-FROM node:lts-alpine as dev
+FROM node:fermium-alpine as dev
 WORKDIR /usr/src/app
 COPY package*.json ./
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:lts-alpine as prod
+FROM node:fermium-alpine as prod
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
