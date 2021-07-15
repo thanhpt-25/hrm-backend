@@ -59,5 +59,19 @@ services:
       - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+  pgadmin:
+    links:
+      - postgres:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    volumes:
+      - ./pgdata/pgadmin:/root/.pgadmin
+    env_file:
+      - .env
+    networks:
+      - nesjs-network
+
 networks:
   nesjs-network:
