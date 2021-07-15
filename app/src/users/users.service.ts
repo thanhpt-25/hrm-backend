@@ -13,7 +13,7 @@ export class UsersService {
      * @param email
      */
 
-    getUserByEmail(email: string):Promise<User>{
+    async getUserByEmail(email: string):Promise<User|undefined>{
         return this.usersRepository.findOne({ email: email});
     }
 
