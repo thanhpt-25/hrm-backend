@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, Unique } from 't
 
 @Entity({name:'users'})
 export class User{
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column({unique:true})

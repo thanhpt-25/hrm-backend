@@ -4,7 +4,7 @@ COPY package*.json ./
 
 RUN npm install glob rimraf
 
-RUN npm install --only=development
+RUN npm install --production=false
 
 COPY . .
 
@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN npm install --production
 
 COPY . .
 

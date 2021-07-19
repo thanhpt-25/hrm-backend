@@ -64,8 +64,6 @@ services:
       - postgres:postgres
     container_name: pgadmin
     image: dpage/pgadmin4
-    ports:
-      - "8080:80"
     volumes:
       - ./pgdata/pgadmin:/root/.pgadmin
     env_file:

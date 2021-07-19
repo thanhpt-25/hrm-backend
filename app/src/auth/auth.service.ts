@@ -27,7 +27,7 @@ export class AuthService {
                 return undefined;
             }
         }catch (e) {
-            return e;
+            return undefined;
         }
     }
     async login(user: User): Promise<any> {
