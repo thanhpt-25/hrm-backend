@@ -1,0 +1,5 @@
+{
+  "MSG_USER_EXISTED": "メール {email} は既に存在しています。",
+  "MSG_SYSTEM_ERROR": "システムエラーでページ表示できません",
+  "UNAUTHORIZED_EXCEPTION": "ユーザー {email}はアクセス権限持っていません。"
+}
