@@ -1,0 +1,5 @@
+{
+  "MSG_USER_EXISTED": "User with email {email} already exists",
+  "MSG_SYSTEM_ERROR": "Internal server error",
+  "UNAUTHORIZED_EXCEPTION": "User {email} does not have right to access"
+}
