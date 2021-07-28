@@ -1,5 +1,7 @@
 {
   "MSG_USER_EXISTED": "メール {email} は既に存在しています。",
   "MSG_SYSTEM_ERROR": "システムエラーでページ表示できません",
-  "UNAUTHORIZED_EXCEPTION": "ユーザー {email}はアクセス権限持っていません。"
+  "MSG_UPDATE_FAILED": "ユーザー {id}　の情報更新失敗しました。",
+  "UNAUTHORIZED_EXCEPTION": "ユーザー {email}はアクセス権限持っていません。",
+
 }

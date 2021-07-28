@@ -1,14 +1,26 @@
-import { Controller, Post} from '@nestjs/common';
-import { Res, Req, Body, HttpStatus} from '@nestjs/common';
-import { NotFoundException, BadRequestException, InternalServerErrorException } from '@nestjs/common';
-import { Query } from '@nestjs/common';
-import { Get } from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Get,
+    HttpCode,
+    HttpStatus,
+    InternalServerErrorException,
+    Param,
+    Patch,
+    Post,
+    Query,
+    Req,
+    Res,
+    UseGuards
+} from '@nestjs/common';
 import {UsersService} from "./users.service";
-import {CreateUserDto} from "./dto/CreateUser.dto";
 import * as bcrypt from 'bcrypt';
-import { PostgresErrorCode } from '../database/error.code'
-import { UseGuards } from '@nestjs/common';
-import  {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import {PostgresErrorCode} from '../database/error.code'
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import UpdateUserDto from "./dto/UpdateUser.dto";
+import CreateUserDto from "./dto/CreateUser.dto";
+import {EntityNotFoundError} from 'typeorm/error/EntityNotFoundError';
 
 @Controller('users')
 export class UsersController {
@@ -19,24 +31,11 @@ export class UsersController {
     ) {}
 
     @UseGuards(JwtAuthGuard)
-    @Get()
-    public getAllUsers(@Query('email') email, @Res() res) {
-        if (!email) {
-            const users = this.userService.findAll();
-            return res.status(HttpStatus.OK).json(users);
-        } else {
-            const user = this.userService.getUserByEmail(email);
-            if (user)
-                return res.status(HttpStatus.OK).json(user);
-            else
-                throw new NotFoundException('User not found');
-        }
-    }
-    @UseGuards(JwtAuthGuard)
     @Get('me')
     public getProfile(@Req() req) {
         return req.user;
     }
+
     @Post()
     public async createUser(@Body() createUserDto : CreateUserDto, @Res() res ){
         const hashedPassword = await bcrypt.hash(createUserDto.password, this.saltOrRounds);
@@ -56,6 +55,24 @@ export class UsersController {
                 );
             }
             throw new InternalServerErrorException({key: 'messages.MSG_SYSTEM_ERROR', args: undefined});
+        }
+    }
+    @UseGuards(JwtAuthGuard)
+    @Patch()
+    public async updateUser(@Req() req,
+                            @Body() updateUserDto:UpdateUserDto
+    ) {
+        const user = req.user;
+        const id = user.userId;
+        try {
+            return await this.userService.update(
+                +id,
+                updateUserDto
+            );
+        }catch(error){
+            throw new BadRequestException(
+                { key: 'messages.MSG_UPDATE_FAILED', args: { id: id } },
+            );
         }
     }
 

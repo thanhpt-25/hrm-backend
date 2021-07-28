@@ -17,8 +17,6 @@ export class AuthService {
                 password,
                 user.password
             );
-            console.log(validated);
-
             if(validated){
                 user.password = undefined;
                 return user;
