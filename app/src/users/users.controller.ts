@@ -3,13 +3,10 @@ import {
     Body,
     Controller,
     Get,
-    HttpCode,
     HttpStatus,
     InternalServerErrorException,
-    Param,
     Patch,
     Post,
-    Query,
     Req,
     Res,
     UseGuards
@@ -20,7 +17,6 @@ import {PostgresErrorCode} from '../database/error.code'
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import UpdateUserDto from "./dto/UpdateUser.dto";
 import CreateUserDto from "./dto/CreateUser.dto";
-import {EntityNotFoundError} from 'typeorm/error/EntityNotFoundError';
 
 @Controller('users')
 export class UsersController {

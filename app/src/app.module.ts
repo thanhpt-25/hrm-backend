@@ -13,6 +13,7 @@ import { I18nModule, I18nJsonParser } from 'nestjs-i18n';
 import  I18nConfig  from './config/i18n.config';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { APP_FILTER } from '@nestjs/core';
+import { ProfilesModule } from './profiles/profiles.module';
 
 import * as path from 'path';
 
@@ -34,9 +35,6 @@ import * as path from 'path';
               limit: config.get('throttle').THROTTLE_LIMIT,
           }),
       }),
-      AuthModule,
-      UsersModule,
-      DatabaseModule,
       I18nModule.forRootAsync({
           imports: [ConfigModule],
           useFactory: (config: ConfigService) => ({
@@ -49,6 +47,10 @@ import * as path from 'path';
           parser: I18nJsonParser,
           inject: [ConfigService],
       }),
+      AuthModule,
+      UsersModule,
+      DatabaseModule,
+      ProfilesModule,
   ],
   controllers: [AppController],
   providers: [

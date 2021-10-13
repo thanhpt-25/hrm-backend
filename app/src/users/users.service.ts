@@ -16,7 +16,7 @@ export class UsersService {
      */
 
     async getUserByEmail(email: string):Promise<User|undefined>{
-        return this.usersRepository.findOne({ email: email});
+        return this.usersRepository.findOne({ where: { email: email} , relations:['profile'] });
     }
 
     /**
