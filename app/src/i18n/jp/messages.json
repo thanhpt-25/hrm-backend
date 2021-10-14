@@ -3,5 +3,6 @@
   "MSG_SYSTEM_ERROR": "システムエラーでページ表示できません",
   "MSG_UPDATE_FAILED": "ユーザー {id}　の情報更新失敗しました。",
   "UNAUTHORIZED_EXCEPTION": "ユーザー {email}はアクセス権限持っていません。",
-  "MSG_PROFILE_ID_NOT_FOUND":  "プロファイル {id}は見つかれませんでした。"
+  "MSG_PROFILE_ID_NOT_FOUND":  "プロファイル {id}は見つかれませんでした。",
+  "UNPROCESSABLE_ENTITY_EXCEPTION" : "入力データーは不正です。"
 }

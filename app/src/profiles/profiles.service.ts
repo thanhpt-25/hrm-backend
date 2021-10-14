@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
+import {EntityNotFoundError, Repository} from "typeorm";
 import {Profile} from "./entities/profile.entity";
 
 @Injectable()
@@ -10,8 +10,9 @@ export class ProfilesService {
   @InjectRepository(Profile)
   private profileRepository : Repository<Profile>;
 
-  create(createProfileDto: CreateProfileDto) {
-    return 'This action adds a new profile';
+  async create(createProfileDto: CreateProfileDto) {
+      const newProfile = await this.profileRepository.create(createProfileDto);
+      return await this.profileRepository.save(newProfile);
   }
 
   async findAll() {
@@ -21,11 +22,12 @@ export class ProfilesService {
     return this.profileRepository.findOne(profile_id);
   }
 
-  update(id: number, updateProfileDto: UpdateProfileDto) {
-    return `This action updates a #${id} profile`;
+  async update(id: number, updateProfileDto: UpdateProfileDto) {
+    return await this.profileRepository.update({id: id}, updateProfileDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} profile`;
+  async remove(id: number) {
+    let profile = await this.profileRepository.findOne(id);
+    return await this.profileRepository.remove(profile);
   }
 }

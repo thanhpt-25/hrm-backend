@@ -7,7 +7,7 @@ import {
     Param,
     Delete,
     UseGuards,
-    NotFoundException
+    NotFoundException, UnprocessableEntityException
 } from '@nestjs/common';
 import {ProfilesService} from './profiles.service';
 import {CreateProfileDto} from './dto/create-profile.dto';
@@ -16,13 +16,20 @@ import {ThrottlerGuard} from "@nestjs/throttler";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 @Controller('profiles')
+@UseGuards(ThrottlerGuard)
+@UseGuards(JwtAuthGuard)
 export class ProfilesController {
     constructor(private readonly service: ProfilesService) {
     }
 
     @Post()
     create(@Body() createProfileDto: CreateProfileDto) {
-        return this.service.create(createProfileDto);
+        return this.service.create(createProfileDto).catch(error => {
+            throw new UnprocessableEntityException({
+                key: 'messages.UNPROCESSABLE_ENTITY_EXCEPTION',
+                args: undefined
+            })
+        });
     }
 
     @Get()
@@ -30,8 +37,6 @@ export class ProfilesController {
         return this.service.findAll();
     }
 
-    @UseGuards(ThrottlerGuard)
-    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async findOne(@Param('id') id: number) {
         let profile = await this.service.findOne(+id);
@@ -44,11 +49,21 @@ export class ProfilesController {
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
-        return this.service.update(+id, updateProfileDto);
+        return this.service.update(+id, updateProfileDto).catch(error => {
+            throw new UnprocessableEntityException({
+                key: 'messages.UNPROCESSABLE_ENTITY_EXCEPTION',
+                args: undefined
+            })
+        });
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.service.remove(+id);
+        return this.service.remove(+id).catch(error=>{
+            throw new UnprocessableEntityException({
+                key: 'messages.UNPROCESSABLE_ENTITY_EXCEPTION',
+                args: id
+            })
+        });
     }
 }
