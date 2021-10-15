@@ -1,4 +1,6 @@
 FROM node:fermium-alpine as dev
+RUN apk --update add postgresql-client
+
 WORKDIR /usr/src/app
 COPY package*.json ./
 
@@ -11,6 +13,7 @@ COPY . .
 RUN npm run build
 
 FROM node:fermium-alpine as prod
+RUN apk --update add postgresql-client
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
