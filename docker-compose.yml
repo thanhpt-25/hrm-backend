@@ -26,8 +26,8 @@ services:
       context: ./app
       target: "${NODE_ENV}"
       dockerfile: Dockerfile
-#    command: npm run start:${NODE_ENV}
-    entrypoint: ["./wait-for-postgres.sh", "npm", "run", "start:${NODE_ENV}"]
+    command: ["./wait-for-postgres.sh", "npm", "run", "typeorm", "migration:run"]
+    entrypoint: ["./docker-entrypoint.sh"]
     env_file:
       - .env
     ports:
