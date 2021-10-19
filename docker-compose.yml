@@ -26,8 +26,7 @@ services:
       context: ./app
       target: "${NODE_ENV}"
       dockerfile: Dockerfile
-    command: ["./wait-for-postgres.sh", "npm", "run", "typeorm", "migration:run"]
-    entrypoint: ["./docker-entrypoint.sh"]
+    entrypoint: ["./wait-for-postgres.sh", "./docker-entrypoint.sh"]
     env_file:
       - .env
     ports:
@@ -41,6 +40,17 @@ services:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
     restart: unless-stopped
+
+  migration:
+    image: "hrm_api_${NODE_ENV}"
+    env_file:
+      - .env
+    command: ["./wait-for-postgres.sh", "npm run typeorm migration:run"]
+    depends_on:
+      - postgres
+      - api
+    networks:
+      - nesjs-network
   redis:
     container_name: redis
     image: redis:latest
