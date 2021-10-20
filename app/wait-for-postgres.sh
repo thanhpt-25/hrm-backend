@@ -7,4 +7,4 @@ until PGPASSWORD=$POSTGRES_PASSWORD PGUSER=$POSTGRES_USER PGHOST=$POSTGRES_DB_HO
   sleep 1
 done
 >&2 echo "Postgres is up..."
-exec ${@}
+exec "$@"
