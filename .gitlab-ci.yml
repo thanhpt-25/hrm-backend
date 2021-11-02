@@ -13,7 +13,7 @@ install:
   script:
     - npm install
     - npm install glob rimraf
-    - npm i -g typeorm ts-node jest
+    - npm i -g typeorm ts-node jest-cli
   tags:
     - "runner"
 build:
