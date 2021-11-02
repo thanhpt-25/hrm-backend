@@ -1,3 +1,4 @@
 pgdata/*
 .idea/*
 app/dist/*
+.DS_Store

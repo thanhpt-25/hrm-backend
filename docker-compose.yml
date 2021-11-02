@@ -26,7 +26,7 @@ services:
       context: ./app
       target: "${NODE_ENV}"
       dockerfile: Dockerfile
-    command: npm run start:${NODE_ENV}
+    command: ["./wait-for-postgres.sh","./docker-entrypoint.sh"]
     env_file:
       - .env
     ports:

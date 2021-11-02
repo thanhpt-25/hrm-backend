@@ -1,13 +1,27 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, Unique } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Profile } from '../../profiles/entities/profile.entity';
 
-@Entity({name:'users'})
-export class User{
-    @PrimaryGeneratedColumn()
-    id: number;
+@Entity({ name: 'users' })
+export class User {
+  @PrimaryGeneratedColumn()
+  public id: number;
 
-    @Column({unique:true})
-    email: string;
+  @Column({ unique: true })
+  public email: string;
 
-    @Column()
-    password?: string;
+  @Column()
+  public password?: string;
+
+  @OneToOne(() => Profile, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  public profile: Profile;
 }
