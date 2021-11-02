@@ -18,6 +18,8 @@ install:
     - "runner"
 build:
   stage: build
+  tags:
+    - "runner"
   script:
     - npm install
     - npm run build
@@ -25,6 +27,8 @@ build:
     paths:
      - build/
 test:
+  tags:
+    - "runner"
   stage: test
   script:
     - npm test
