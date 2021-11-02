@@ -1,11 +1,22 @@
-image: node:fermium-alpine
+image: node:latest
+before_script:
+ - apt-get update -qy
+ - apt-get install -y postgresql-client
 stages:
- - build
- - test
- - deploy
+  - install
+  - build
+  - test
+  - deploy
+install:
+  stage : install 
+  script:
+    - npm install
+    - npm install glob rimraf
+    - npm i -g typeorm ts-node
 build:
   stage: build
   script:
+    - cd app
     - npm install
     - npm run build
   artifacts:
@@ -14,5 +25,6 @@ build:
 test:
   stage: test
   script:
+    - cd app
     - npm test
     - npm run lint
