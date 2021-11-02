@@ -1,8 +1,8 @@
-import {Profile} from "../entities/profile.entity";
+import { Profile } from '../entities/profile.entity';
 
 export class InquiryPaginatedProfilesDto {
-    data: Profile[]
-    page: number
-    limit: number
-    totalCount: number
+  data: Profile[];
+  page: number;
+  limit: number;
+  totalCount: number;
 }

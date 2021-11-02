@@ -1,7 +1,7 @@
 export enum MaritalStatus {
-    Single,
-    Married,
-    Divorced,
-    Widowed,
-    Others
+  Single,
+  Married,
+  Divorced,
+  Widowed,
+  Others,
 }
