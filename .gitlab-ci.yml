@@ -20,10 +20,6 @@ install:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
       - node_modules/
-  only:
-    changes:
-      - package-lock.json
-
 build:
   stage: build
   tags:
