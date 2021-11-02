@@ -2,6 +2,7 @@ image: node:latest
 before_script:
  - apt-get update -qy
  - apt-get install -y postgresql-client
+ - cd app
 stages:
   - install
   - build
@@ -18,7 +19,6 @@ install:
 build:
   stage: build
   script:
-    - cd app
     - npm install
     - npm run build
   artifacts:
@@ -27,6 +27,5 @@ build:
 test:
   stage: test
   script:
-    - cd app
     - npm test
     - npm run lint
