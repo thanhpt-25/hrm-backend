@@ -13,6 +13,8 @@ install:
     - npm install
     - npm install glob rimraf
     - npm i -g typeorm ts-node
+  tags:
+    - "runner"
 build:
   stage: build
   script:
