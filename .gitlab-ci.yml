@@ -1,33 +1,24 @@
-image: node:latest
+stages:
+  - build
+  - test
+cache:
+  paths:
+    - node_modules/
 before_script:
  - apt-get update -qy
  - apt-get install -y postgresql-client
  - npm i -g typeorm ts-node
  - cd app
-stages:
-  - install
-  - build
-  - test
-  - deploy
-install:
-  stage : install 
-  script:
-    - npm install
-    - npm install glob rimraf jest-cli
-  tags:
-    - "runner"
-  artifacts:
-    paths: 
-      - node_modules
+
 build:
   stage: build
   tags:
     - "runner"
   script:
+    - npm install
+    - npm install glob rimraf jest-cli
     - npm run build
-  artifacts:
-    paths:
-     - build
+
 test:
   tags:
     - "runner"
