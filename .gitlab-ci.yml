@@ -11,13 +11,13 @@ before_script:
  - apt-get install -y postgresql-client
  - npm i -g typeorm ts-node
  - cd app
+ - npm install
 
 build:
   stage: build
   tags:
     - "runner"
   script:
-    - npm install
     - npm install glob rimraf
     - npm run build
 
