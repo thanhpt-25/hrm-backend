@@ -18,7 +18,7 @@ build:
     - "runner"
   script:
     - npm install
-    - npm install glob rimraf jest-cli
+    - npm install glob rimraf
     - npm run build
 
 test:
@@ -26,5 +26,6 @@ test:
     - "runner"
   stage: test
   script:
+    - npm install jest jest-cli
     - npm test
     - npm run lint
