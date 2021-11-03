@@ -28,6 +28,7 @@ export class ProfilesController {
   @Post()
   create(@Body() createProfileDto: CreateProfileDto) {
     return this.service.create(createProfileDto).catch((error) => {
+      console.log(error);
       throw new UnprocessableEntityException({
         key: 'messages.UNPROCESSABLE_ENTITY_EXCEPTION',
         args: undefined,
@@ -63,9 +64,10 @@ export class ProfilesController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
     return this.service.update(+id, updateProfileDto).catch((error) => {
+      console.log(error);
       throw new UnprocessableEntityException({
         key: 'messages.UNPROCESSABLE_ENTITY_EXCEPTION',
-        args: undefined,
+        args: id,
       });
     });
   }
