@@ -26,6 +26,4 @@ test:
     - "runner"
   stage: test
   script:
-    - npm install jest jest-cli
-    - npm test
     - npm run lint
