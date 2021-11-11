@@ -27,3 +27,6 @@ test:
   stage: test
   script:
     - npm run lint
+  only:
+    - merge_requests
+
