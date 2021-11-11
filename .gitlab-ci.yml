@@ -1,0 +1,32 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+cache:
+  paths:
+    - node_modules/
+before_script:
+ - apt-get update -qy
+ - apt-get install -y postgresql-client
+ - npm i -g typeorm ts-node
+ - cd app
+ - npm install
+
+build:
+  stage: build
+  tags:
+    - "runner"
+  script:
+    - npm install glob rimraf
+    - npm run build
+
+test:
+  tags:
+    - "runner"
+  stage: test
+  script:
+    - npm run lint
+  only:
+    - merge_requests
+
